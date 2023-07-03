@@ -4,8 +4,11 @@ import datetime
 import pandas
 from pprint import pprint
 import collections
+import argparse
 
-def ending(year):
+YEAR = 1920
+
+def get_ending(year):
     
     num = year % 100
     if num > 4 and num < 21: return 'лет'
@@ -19,9 +22,17 @@ def ending(year):
 
 def main():
 
+    parser = argparse.ArgumentParser(
+        description='Запускает сайт и заполняет раздел товаров информацией указанной в .xlsx файле'
+    )
+    parser.add_argument('file', help='Введите путь к .xlsx файлу с описанием товаров')
+    args = parser.parse_args()
+
     group_wines = collections.defaultdict(list)
-    pd = pandas.read_excel('wine3.xlsx', index_col=None, na_values=None, keep_default_na=False)
+    pd = pandas.read_excel(args.file, na_values=None, keep_default_na=False)
     wines = pd.to_dict('index')
+
+    lifetime = datetime.datetime.now().year - YEAR
 
     for wine in wines:
         group_wines[wines[wine]['Категория']].append({'title': wines[wine]['Название'], 
@@ -39,8 +50,8 @@ def main():
     template = env.get_template('template.html')
 
     rendered_page = template.render(
-        age = datetime.datetime.now().year - 1920,
-        ending = ending(datetime.datetime.now().year - 1920),
+        age = lifetime,
+        ending = get_ending(lifetime),
         group_wines = group_wines,
         
     )
