@@ -28,7 +28,7 @@ def main():
     parser = argparse.ArgumentParser(
         description='Запускает сайт и заполняет раздел товаров информацией указанной в .xlsx файле'
     )
-    parser.add_argument('file', help='Введите путь к .xlsx файлу с описанием товаров')
+    parser.add_argument('file', help='Введите путь к .xlsx файлу с описанием товаров', default='wine.xlsx')
     args = parser.parse_args()
 
     group_wines = collections.defaultdict(list)
