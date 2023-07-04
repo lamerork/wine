@@ -6,17 +6,20 @@ from pprint import pprint
 import collections
 import argparse
 
-YEAR = 1920
+YEAR_COMPANY_FOUNDATTION = 1920
 
 def get_ending(year):
     
     num = year % 100
-    if num > 4 and num < 21: return 'лет'
+    if num > 4 and num < 21: 
+        return 'лет'
     
     num = num % 10
-    if num == 1: return 'год'
+    if num == 1: 
+        return 'год'
     
-    if num > 1 and num < 5: return 'года'
+    if num > 1 and num < 5: 
+        return 'года'
     
     return 'лет'
 
@@ -32,7 +35,7 @@ def main():
     pd = pandas.read_excel(args.file, na_values=None, keep_default_na=False)
     wines = pd.to_dict('index')
 
-    lifetime = datetime.datetime.now().year - YEAR
+    lifetime = datetime.datetime.now().year - YEAR_COMPANY_FOUNDATTION
 
     for wine in wines:
         group_wines[wines[wine]['Категория']].append({'title': wines[wine]['Название'], 
