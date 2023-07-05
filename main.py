@@ -5,7 +5,7 @@ import pandas
 import collections
 import argparse
 
-YEAR_COMPANY_FOUNDATTION = 1920
+COMPANY_FOUNDATTION_YEAR = 1920
 
 
 def get_ending(year):
@@ -32,7 +32,7 @@ def main():
     pd = pandas.read_excel(args.file, na_values=None, keep_default_na=False)
     wines = pd.to_dict('index')
 
-    lifetime = datetime.datetime.now().year - YEAR_COMPANY_FOUNDATTION
+    lifetime = datetime.datetime.now().year - COMPANY_FOUNDATTION_YEAR
 
     for wine in wines:
         group_wines[wines[wine]['Категория']].append(
